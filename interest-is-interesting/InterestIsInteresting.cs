@@ -4,21 +4,33 @@ static class SavingsAccount
 {
     public static float InterestRate(decimal balance)
     {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.InterestRate() method");
+        return balance switch
+        { 
+            _ when balance < 0 => 3.213f,
+            _ when balance < 1000 => 0.5f,
+            _ when balance >= 1000 && balance < 5000 => 1.621f,
+            _ => 2.475f
+        };
     }
 
     public static decimal Interest(decimal balance)
     {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.Interest() method");
+        return balance * (decimal)InterestRate(balance) / 100;
     }
 
     public static decimal AnnualBalanceUpdate(decimal balance)
     {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.AnnualBalanceUpdate() method");
+      return balance + Interest(balance);        
     }
 
     public static int YearsBeforeDesiredBalance(decimal balance, decimal targetBalance)
     {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.YearsBeforeDesiredBalance() method");
+        int years = 0;
+        while(balance < targetBalance)
+        {
+            years++;
+            balance = AnnualBalanceUpdate(balance);
+        }       
+        return years;     
     }
 }
