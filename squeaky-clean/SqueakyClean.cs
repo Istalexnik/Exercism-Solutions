@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 public static class Identifier
 {
     public static string Clean(string identifier)
     {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
 
         for(int i = 0; i < identifier.Length; i++)
         {
@@ -14,13 +13,13 @@ public static class Identifier
 
             if (c == '-')
             {
-                sb.Append(identifier[++i].ToString().ToUpper());
+                sb.Append(char.ToUpper(identifier[++i]));
             }
             else
             {
                 sb.Append(c switch
                 {
-                    _ when c >= 'α' && c <= 'ω' => "",
+                    _ when c >= 'α' && c <= 'ω' => default,
                     _ when char.IsLetter(c) => c,
                     _ when char.IsWhiteSpace(c) => '_',
                     _ when c == '\0' => "CTRL",
